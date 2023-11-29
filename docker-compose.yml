@@ -14,5 +14,19 @@ services:
     tty: true
     privileged: true
     command: dbus-launch google-chrome --disable-gpu --disable-software-rasterizer --disable-dev-shm-usage --no-sandbox &
+
+  vpn:
+    image: container_browser_vpn:latest 
+    environment:
+      - DISPLAY=${DISPLAY}
+      - PULSE_SERVER=unix:/run/pulse/native
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ~/.Xauthority:/home/user/.Xauthority
+      - /run/user/${UID}/pulse/native:/run/pulse/native
+    stdin_open: true
+    tty: true
+    privileged: true
+    command: dbus-launch google-chrome --disable-gpu --disable-software-rasterizer --disable-dev-shm-usage --no-sandbox &
  
     # command: ["tail", "-f", "/dev/null"]
